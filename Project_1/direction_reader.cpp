@@ -1,3 +1,10 @@
+/*
+Author: Ishraq Mahid
+Course : CSCI-135
+Instructor: Professor Genady Maryash
+Assignment: Project Task 1
+*/
+
 #include <iostream>
 #include <string>
 
