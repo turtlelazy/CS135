@@ -1,3 +1,10 @@
+/*
+Author: Ishraq Mahid
+Course : CSCI-135
+Instructor: Professor Genady Maryash
+Assignment: Project Task 2
+*/
+
 #include <iostream>
 #include <string>
 
@@ -25,13 +32,19 @@ int main(){
     while (std::cin >> s)
     {                 // While the reading operation is a success
         //direction(s); // print the read word
-        pX = endX(pX, s);
-        pY = endY(pY, s);
 
-        if(!valid(pX,pY,maze)){
-            std::cout << "You are stuck in the maze.\n";
-            return 0;
+        if (valid(endX(pX, s),endY(pY, s),maze)){
+            pX = endX(pX, s);
+            pY = endY(pY, s);
         }
+
+
+        // if(!valid(pX,pY,maze)){
+        //     std::cout << "You are stuck in the maze.\n";
+        //     std::cout << pX << "X\n";
+        //     std::cout << pY << "Y\n";
+        //     return 0;
+        // }
         
     }
     // std::cout << goalX << " " << pX << "\n";
@@ -78,9 +91,11 @@ void success(int goalX, int pX, int goalY, int pY){
     }
     else{
         std::cout << "You are stuck in the maze.\n";
+        // std::cout << pX << "X\n";
+        // std::cout<< pY << "Y\n";
     }
 }
 
 bool valid(int pX, int pY, int maze[6][6]){
-    return maze[pX][pY]==0;
+    return maze[pY][pX]==0;
 }
