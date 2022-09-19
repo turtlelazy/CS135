@@ -1,6 +1,11 @@
 #include <iostream>
 #include <string>
 
+int endY(int startY, char letter);
+int endX(int startX, char letter);
+void success(int goalX, int pX, int goalY, int pY);
+bool valid(int pX, int pY, int maze[6][6]);
+
 int maze[6][6] = {
     1, 0, 1, 1, 1, 1,
     1, 0, 0, 0, 1, 1,
@@ -14,30 +19,68 @@ int main(){
     int pX = 1;
     int pY = 0;
 
-    int Fx = 1;
-    int Fy = 0;
+    int goalX = 5;
+    int goalY = 4;
+    char s;
+    while (std::cin >> s)
+    {                 // While the reading operation is a success
+        //direction(s); // print the read word
+        pX = endX(pX, s);
+        pY = endY(pY, s);
 
-    std::string instructions;
-    std::cin >> instructions;
+        if(!valid(pX,pY,maze)){
+            std::cout << "You are stuck in the maze.\n";
+            return 0;
+        }
+        
+    }
+    // std::cout << goalX << " " << pX << "\n";
+    // std::cout << goalY << " " << pY << "\n";
 
-    instructions = cleanInput(instructions);
-
+    success(goalX,pX,goalY,pY);
     return 0;
 }
 
-std::string cleanInput(std::string input){
-    int N = input.length();
-    std::string newOutput = "";
-    for(int i = 0; i < N; i++){
-        if(input[i] != ' '){
-            newOutput += input[i];
+int endX(int startX, char letter){
+    if(letter != ' '){
+        if (letter == 'R')
+        {
+            startX += 1;
         }
+        else if (letter == 'L')
+        {
+            startX -= 1;
+        }
+
     }
-    return newOutput;
+    return startX;
 }
 
-int endX(int startX, std::string cleanedInput){
-    for(int i = 0; i < cleanedInput.length();i++){
-        
+int endY(int startY, char letter)
+{
+    if (letter != ' ')
+    {
+        if (letter == 'D')
+        {
+            startY += 1;
+        }
+        else if (letter == 'U')
+        {
+            startY -= 1;
+        }
     }
+    return startY;
+}
+
+void success(int goalX, int pX, int goalY, int pY){
+    if(goalX == pX && goalY == pY){
+        std::cout << "You got out of the maze.\n";
+    }
+    else{
+        std::cout << "You are stuck in the maze.\n";
+    }
+}
+
+bool valid(int pX, int pY, int maze[6][6]){
+    return maze[pX][pY]==0;
 }
