@@ -37,13 +37,17 @@ int main()
             newLine = false;
         }
 
-        if (count + input_file.length() < width)
+        if (count + input_file.length() <= width)
         {
             if (count > 0)
                 out_file << " " << input_file;
             else
                 out_file << input_file;
-            count = count + input_file.length();
+
+            if (count + input_file.length() == width)
+                count = 0;
+            else
+                count = count + input_file.length();
             if (in_file.eof() == false)
             {
                 newLine = true;
@@ -55,7 +59,7 @@ int main()
             //Finding when is the last space before it reaches the max width (taking into account the current width)
             while (input_file.length() > width - count)
             {
-                if (input_file.substr(0, input_file.find(' ') - 1).length() + count > width)
+                if (input_file.substr(0, input_file.find(' ')).length() + count >= width)
                 {
                     out_file << std::endl;
                     count = 0;
